@@ -1,8 +1,8 @@
 from subprocess import call
 
-call('pip install ..', shell=True)
+call('pip install six ..', shell=True)
 
-from ordered-map import _get_metadata
+from ordered_map import _get_metadata
 
 
 author = _get_metadata('Author')
