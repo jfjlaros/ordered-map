@@ -1,0 +1,7 @@
+*.pyc
+.cache/
+.pytest_cache/
+.tox/
+build/
+dist/
+ordered_map.egg-info/
