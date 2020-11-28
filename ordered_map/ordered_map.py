@@ -1,6 +1,3 @@
-from collections import defaultdict
-
-
 def deserialise(string):
     """Deserialise an ordered map string.
 
@@ -92,7 +89,7 @@ def from_list(data):
     return data
 
 
-def parse(handle):
+def read(handle):
     """Parse an ordered map file.
 
     :arg stream handle: Open readable handle to an ordered map file.
