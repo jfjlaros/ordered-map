@@ -60,6 +60,38 @@ def merge(d1, d2):
     return result
 
 
+def to_list(data):
+    """Convert indexed dictionaries to lists.
+
+    :arg dict data: An ordered map.
+
+    :returns dict: An ordered map.
+    """
+    if not isinstance(data, dict):
+        return data
+
+    if (
+            all(map(lambda x: x.isdigit(), data)) and
+            sorted(map(int, data)) == list(range(len(data)))):
+        return [to_list(data[i]) for i in sorted(data)]
+
+    return dict([(key, to_list(data[key])) for key in data])
+
+
+def from_list(data):
+    """Convert lists to indexed dictionaries.
+
+    :arg dict data: An ordered map.
+
+    :returns dict: An ordered map.
+    """
+    if isinstance(data, list):
+        return dict([(str(i), from_list(v)) for i, v in enumerate(data)])
+    if isinstance(data, dict):
+        return dict([(key, from_list(data[key])) for key in data])
+    return data
+
+
 def parse(handle):
     """Parse an ordered map file.
 
@@ -72,7 +104,7 @@ def parse(handle):
         if line[0] not in ('#', ' ', '\t', '\n', '\r'):
             data = merge(data, deserialise(line))
 
-    return data
+    return to_list(data)
 
 
 def write(handle, data):
@@ -81,6 +113,7 @@ def write(handle, data):
     :arg stream handle: Open writeable handle to an ordered map file.
     :arg dict data: An ordered map.
     """
-    for key in sorted(data):
+    _data = from_list(data)
+    for key in sorted(_data):
         handle.write('{}\n'.format(62 * '#'))
-        handle.write(serialise(data[key], key))
+        handle.write(serialise(_data[key], key))
