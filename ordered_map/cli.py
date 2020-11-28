@@ -1,12 +1,12 @@
 from argparse import ArgumentParser, FileType, RawDescriptionHelpFormatter
 
 from . import doc_split, usage, version
-#from .ordered_map import 
+from .ordered_map import parse
 
 
 def ordered_map():
     """"""
-    pass
+    print(parse(open('/tmp/boards.txt')))
 
 
 def main():
