@@ -1,8 +1,7 @@
 from argparse import ArgumentParser, FileType, RawDescriptionHelpFormatter
 from yaml import safe_dump, safe_load
 
-from . import doc_split, usage, version
-from .ordered_map import read as om_read, write as om_write
+from . import doc_split, usage, version, read as om_read, write as om_write
 
 
 def read(input_handle, output_handle):

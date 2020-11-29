@@ -1,6 +1,6 @@
 from pkg_resources import get_distribution
 
-#from .ordered_map import 
+from .ordered_map import read, write
 
 
 def _get_metadata(name):
