@@ -11,7 +11,7 @@ def read(input_handle, output_handle):
     :args stream output_handle: Output file in YAML format.
     """
     safe_dump(
-        om_read(input_handle), output_handle, width=76,
+        om_read(input_handle.read()), output_handle, width=76,
         default_flow_style=False)
 
 
@@ -21,7 +21,7 @@ def write(input_handle, output_handle):
     :args stream input_handle: Intput file in YAML format.
     :args stream output_handle: Output file in ordered map format.
     """
-    om_write(output_handle, safe_load(input_handle))
+    output_handle.write(om_write(safe_load(input_handle)))
 
 
 def main():

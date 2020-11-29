@@ -1,6 +1,4 @@
 """Tests for the ordered-map library."""
-from io import StringIO
-
 from ordered_map.ordered_map import (
     _deserialise, _from_list, _merge, _serialise, _to_list)
 from ordered_map import read, write
@@ -52,37 +50,31 @@ def test_from_list():
 
 
 def test_read_skip():
-    assert read(StringIO('')) == []
-    assert read(StringIO('\n')) == []
-    assert read(StringIO('\r')) == []
-    assert read(StringIO('# Comment.')) == []
-    assert read(StringIO(' a=b')) == []
-    assert read(StringIO('\ta=b')) == []
+    assert read('') == []
+    assert read('\n') == []
+    assert read('\r') == []
+    assert read('# Comment.') == []
+    assert read(' a=b') == []
+    assert read('\ta=b') == []
 
 
 def test_read_single():
-    assert read(StringIO('a=b')) == {'a': 'b'}
+    assert read('a=b') == {'a': 'b'}
 
 
 def test_read_multi():
-    assert read(StringIO('a=b\nx=y')) == {'a': 'b', 'x': 'y'}
+    assert read('a=b\nx=y') == {'a': 'b', 'x': 'y'}
 
 
 def test_write_skip():
-    s = StringIO()
-    write(s, {})
-    assert s.getvalue() == ''
-    write(s, [])
-    assert s.getvalue() == ''
+    assert write({}) == ''
+    assert write([]) == ''
 
 
 def test_write_single():
-    s = StringIO()
-    write(s, {'a': 'b'})
-    assert s.getvalue() == '{}\na=b\n'.format(62 * '#')
+    assert write({'a': 'b'}) == '{}\na=b\n'.format(62 * '#')
 
 
 def test_write_multi():
-    s = StringIO()
-    write(s, {'a': 'b', 'x': 'y'})
-    assert s.getvalue() == '{}\na=b\n{}\nx=y\n'.format(62 * '#', 62 * '#')
+    assert write({'a': 'b', 'x': 'y'}) == '{}\na=b\n{}\nx=y\n'.format(
+        62 * '#', 62 * '#')

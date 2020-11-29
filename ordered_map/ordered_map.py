@@ -5,8 +5,8 @@ def _deserialise(string):
 
     :returns dict: An ordered map.
     """
-    if '.' not in string:
-        key, value = string.split('=')
+    if '.' not in string.split('=')[0]:
+        key, value = string.split('=', maxsplit=1)
         return {key.strip(): value.strip()}
 
     head, tail = string.split('.', maxsplit=1)
@@ -27,7 +27,10 @@ def _serialise(data, prefix=''):
     result = ''
     for key in sorted(data):
         if prefix:
-            result += _serialise(data[key], '{}.{}'.format(prefix, key))
+            if key:
+                result += _serialise(data[key], '{}.{}'.format(prefix, key))
+            else:
+                result += _serialise(data[key], prefix)
         else:
             result += _serialise(data[key], key)
     return result
@@ -41,18 +44,24 @@ def _merge(d1, d2):
 
     :returns dict: Merged dictionary.
     """
-    if not isinstance(d1, dict) or not isinstance(d2, dict):
+    if not isinstance(d1, dict) and not isinstance(d2, dict):
         return {d1, d2}
 
+    _d1, _d2 = d1, d2
+    if not isinstance(d1, dict):
+        _d1 = {'': d1}
+    if not isinstance(d2, dict):
+        _d2 = {'': d2}
+
     result = {}
-    for key in set(d1.keys()) | set(d2.keys()):
-        if key in d1:
-            if key in d2:
-                result[key] = _merge(d1[key], d2[key])
+    for key in set(_d1.keys()) | set(_d2.keys()):
+        if key in _d1:
+            if key in _d2:
+                result[key] = _merge(_d1[key], _d2[key])
             else:
-                result[key] = d1[key]
+                result[key] = _d1[key]
         else:
-            result[key] = d2[key]
+            result[key] = _d2[key]
     return result
 
 
@@ -87,27 +96,30 @@ def _from_list(data):
     return data
 
 
-def read(handle):
+def read(string):
     """Parse an ordered map file.
 
-    :arg stream handle: Open readable handle to an ordered map file.
+    :arg str string: Content of an ordered map file.
 
     :returns dict: An ordered map.
     """
     data = {}
-    for line in handle.readlines():
-        if line[0] not in ('#', ' ', '\t', '\n', '\r'):
+    for line in string.split('\n'):
+        if line and line[0] not in ('#', ' ', '\t', '\r'):
             data = _merge(data, _deserialise(line))
     return _to_list(data)
 
 
-def write(handle, data):
+def write(data):
     """Write an odered map to a file.
 
-    :arg stream handle: Open writeable handle to an ordered map file.
     :arg dict data: An ordered map.
+
+    :returns str: Content of an ordered map file.
     """
     _data = _from_list(data)
+
+    string = ''
     for key in sorted(_data):
-        handle.write('{}\n'.format(62 * '#'))
-        handle.write(_serialise(_data[key], key))
+        string += '{}\n{}'.format(62 * '#', _serialise(_data[key], key))
+    return string

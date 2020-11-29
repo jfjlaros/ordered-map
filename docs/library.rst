@@ -7,17 +7,18 @@ The API library provides the ``read`` and ``write`` functions.
 
     >>> from ordered_map import read, write
 
-The ``read`` function reads an ordered map file and returns a nested
+The ``read`` function reads an ordered map file string and returns a nested
 dictionary.
 
 .. code::
 
-    >>> data = read(open('boards.txt'))
+    >>> data = read(open('boards.txt').read())
     >>> data['FTDI_PID_6001']['vid'][0]
     '0x0403'
 
-The ``write`` function writes a nested dictionary to an ordered map file.
+The ``write`` function writes a nested dictionary to an ordered map file
+string.
 
 .. code::
 
-    >>> write(open('boards.txt', 'w'), data)
+    >>> open('/tmp/x.txt', 'w').write(write(data))
