@@ -24,9 +24,18 @@ Ordered map parser and writer.
 
 ----
 
-This package provides ...
+This package provides:
+
+- A library for reading and writing ordered maps.
+- A command line interface for converting an ordered map to YAML and vice
+  versa.
+
+Ordered maps are used in the Arduino platform software to handle
+configurations_ made of key/value pairs stored in files with an INI like
+syntax.
 
 Please see ReadTheDocs_ for the latest documentation.
 
 
 .. _ReadTheDocs: https://ordered-map.readthedocs.io/en/latest/index.html
+.. _configurations: https://arduino.github.io/arduino-cli/latest/platform-specification/#boardstxt

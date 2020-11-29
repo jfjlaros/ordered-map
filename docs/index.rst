@@ -7,4 +7,6 @@
    introduction
    installation
    usage
+   library
+   api
    credits

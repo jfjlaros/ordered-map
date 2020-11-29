@@ -1,5 +1,5 @@
 API documentation
 =================
 
-.. automodule:: ordered-map.ordered-map
+.. automodule:: ordered_map.ordered_map
    :members:
