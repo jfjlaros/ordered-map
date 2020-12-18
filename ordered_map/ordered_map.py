@@ -27,7 +27,7 @@ def _serialise(data, prefix=''):
     result = ''
     for key in sorted(data):
         if prefix:
-            if key:
+            if key != '_':
                 result += _serialise(data[key], '{}.{}'.format(prefix, key))
             else:
                 result += _serialise(data[key], prefix)
@@ -49,9 +49,9 @@ def _merge(d1, d2):
 
     _d1, _d2 = d1, d2
     if not isinstance(d1, dict):
-        _d1 = {'': d1}
+        _d1 = {'_': d1}
     if not isinstance(d2, dict):
-        _d2 = {'': d2}
+        _d2 = {'_': d2}
 
     result = {}
     for key in set(_d1.keys()) | set(_d2.keys()):
