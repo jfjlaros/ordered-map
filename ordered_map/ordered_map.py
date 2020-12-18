@@ -1,9 +1,9 @@
-def _deserialise(string):
+def _deserialise(string: str) -> dict:
     """Deserialise an ordered map string.
 
-    :arg str string: An ordered map string.
+    :arg string: An ordered map string.
 
-    :returns dict: An ordered map.
+    :returns: An ordered map.
     """
     if '.' not in string.split('=')[0]:
         key, value = string.split('=', maxsplit=1)
@@ -13,13 +13,13 @@ def _deserialise(string):
     return {head: _deserialise(tail)}
 
 
-def _serialise(data, prefix=''):
+def _serialise(data: any, prefix: str='') -> str:
     """Serialise an ordered map.
 
-    :arg dict data: An ordered map.
-    :arg str prefix: Partially serialised result.
+    :arg data: An ordered map.
+    :arg prefix: Partially serialised result.
 
-    :returns str: An ordered map string.
+    :returns: An ordered map string.
     """
     if not isinstance(data, dict):
         return '{}={}\n'.format(prefix, data)
@@ -36,13 +36,13 @@ def _serialise(data, prefix=''):
     return result
 
 
-def _merge(d1, d2):
+def _merge(d1: any, d2: any) -> dict:
     """Merge two dictionaries.
 
-    :arg dict d1: Dictionary 1.
-    :arg dict d2: Dictionary 2.
+    :arg d1: Dictionary 1.
+    :arg d2: Dictionary 2.
 
-    :returns dict: Merged dictionary.
+    :returns: Merged dictionary.
     """
     if not isinstance(d1, dict) and not isinstance(d2, dict):
         return {d1, d2}
@@ -65,12 +65,12 @@ def _merge(d1, d2):
     return result
 
 
-def _to_list(data):
+def _to_list(data: any) -> dict:
     """Convert indexed dictionaries to lists.
 
-    :arg dict data: An ordered map.
+    :arg data: An ordered map.
 
-    :returns dict: An ordered map.
+    :returns: An ordered map.
     """
     if not isinstance(data, dict):
         return data
@@ -82,12 +82,12 @@ def _to_list(data):
     return dict([(key, _to_list(data[key])) for key in data])
 
 
-def _from_list(data):
+def _from_list(data: any) -> dict:
     """Convert lists to indexed dictionaries.
 
-    :arg dict data: An ordered map.
+    :arg data: An ordered map.
 
-    :returns dict: An ordered map.
+    :returns: An ordered map.
     """
     if isinstance(data, list):
         return dict([(str(i), _from_list(v)) for i, v in enumerate(data)])
@@ -96,12 +96,12 @@ def _from_list(data):
     return data
 
 
-def read(string):
+def read(string: str) -> dict:
     """Parse an ordered map file.
 
-    :arg str string: Content of an ordered map file.
+    :arg string: Content of an ordered map file.
 
-    :returns dict: An ordered map.
+    :returns: An ordered map.
     """
     data = {}
     for line in string.split('\n'):
@@ -110,12 +110,12 @@ def read(string):
     return _to_list(data)
 
 
-def write(data):
+def write(data: dict) -> str:
     """Write an odered map to a file.
 
-    :arg dict data: An ordered map.
+    :arg data: An ordered map.
 
-    :returns str: Content of an ordered map file.
+    :returns: Content of an ordered map file.
     """
     _data = _from_list(data)
 

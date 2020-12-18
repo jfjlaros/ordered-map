@@ -4,7 +4,7 @@ from yaml import safe_dump, safe_load
 from . import doc_split, usage, version, read as om_read, write as om_write
 
 
-def read(input_handle, output_handle):
+def read(input_handle: object, output_handle: object) -> None:
     """Convert an ordered map file to a YAML file.
 
     :args stream input_handle: Input file in ordered map format.
@@ -15,7 +15,7 @@ def read(input_handle, output_handle):
         default_flow_style=False)
 
 
-def write(input_handle, output_handle):
+def write(input_handle: object, output_handle: object) -> None:
     """Convert a YAML file to an ordered map file.
 
     :args stream input_handle: Intput file in YAML format.
@@ -24,7 +24,7 @@ def write(input_handle, output_handle):
     output_handle.write(om_write(safe_load(input_handle)))
 
 
-def main():
+def main() -> None:
     """Main entry point."""
     files_parser = ArgumentParser(add_help=False)
     files_parser.add_argument(
