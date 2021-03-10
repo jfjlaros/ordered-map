@@ -57,6 +57,6 @@ def main() -> None:
     try:
         args.func(
             **{k: v for k, v in vars(args).items()
-            if k not in ('func', 'subcommand')})
+               if k not in ('func', 'subcommand')})
     except (ValueError, IOError) as error:
         parser.error(error)
