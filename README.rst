@@ -3,8 +3,8 @@ Ordered map parser and writer.
 
 .. image:: https://img.shields.io/github/last-commit/jfjlaros/ordered-map.svg
    :target: https://github.com/jfjlaros/ordered-map/graphs/commit-activity
-.. image:: https://travis-ci.org/jfjlaros/ordered-map.svg?branch=master
-   :target: https://travis-ci.org/jfjlaros/ordered-map
+.. image:: https://github.com/jfjlaros/ordered-map/actions/workflows/python-package.yml/badge.svg
+   :target: https://github.com/jfjlaros/ordered-map/actions/workflows/python-package.yml
 .. image:: https://readthedocs.org/projects/ordered-map/badge/?version=latest
    :target: https://ordered-map.readthedocs.io/en/latest
 .. image:: https://img.shields.io/github/release-date/jfjlaros/ordered-map.svg
