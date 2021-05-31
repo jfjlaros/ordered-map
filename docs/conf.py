@@ -1,6 +1,7 @@
 from subprocess import call
 
-call('pip install six ..', shell=True)
+# NOTE: Add sphinx_autodoc_typehints when ReadTheDocs supports it.¶
+call('pip install six sphinx-argparse ..', shell=True)
 
 from ordered_map import _get_metadata
 
@@ -11,5 +12,6 @@ project = _get_metadata('Name')
 release = _get_metadata('Version')
 
 autoclass_content = 'both'
-extensions = ['sphinx.ext.autodoc']
+# NOTE: Add sphinx_autodoc_typehints when ReadTheDocs supports it.¶
+extensions = ['sphinx.ext.autodoc', 'sphinxarg.ext']
 master_doc = 'index'

@@ -24,8 +24,8 @@ def write(input_handle: object, output_handle: object) -> None:
     output_handle.write(om_write(safe_load(input_handle)))
 
 
-def main() -> None:
-    """Main entry point."""
+def _arg_parser() -> object:
+    """Command line argument parsing."""
     files_parser = ArgumentParser(add_help=False)
     files_parser.add_argument(
         'input_handle', metavar='INPUT', type=FileType('r'),
@@ -48,6 +48,13 @@ def main() -> None:
     write_parser = subparsers.add_parser(
         'write', parents=[files_parser], description=doc_split(write))
     write_parser.set_defaults(func=write)
+
+    return parser
+
+
+def main() -> None:
+    """Main entry point."""
+    parser = _arg_parser()
 
     try:
         args = parser.parse_args()
